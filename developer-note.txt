@@ -1,0 +1,9 @@
+After installation of node js 
+# npm init -y
+# npm i express
+# create server.js file and setup server in this file.
+# npm i nodemon -g
+# npm  i dotenv
+npm install --save sequelize
+npm install mysql2
+
