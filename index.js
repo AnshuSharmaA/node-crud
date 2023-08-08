@@ -5,7 +5,7 @@ require('./database/database')
 const authRoutes = require('./routes/auth/users');
 
 app.use('/auth',authRoutes);
-
+app.use(express.json());
 const port = process.env.PORT || 4500;
 
 app.listen(port, (req, res) => {

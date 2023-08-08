@@ -1,9 +1,12 @@
 const User = require('../../models/User')
-exports.register = async (req, resp) => {
+const register = async (req, resp) => {
     try {
-        const user =  await User.find();
-        console.log(user);
+        console.log(req.body);
+        const { name, email, password } = req.body;
+        const user = await User.create({ name, email, password });
+        resp.status(201).json(user);
     } catch (error) {
-        console.log(error);
+        resp.status(400).json({ message: error.message });
     }
-} 
+}
+module.exports = {register}
