@@ -69,7 +69,7 @@ const login = async (req, resp) => {
             const token = jwt.sign({ userId: user.id }, 'your-secret-key', { expiresIn: '1h' });
             const data = {
                 'status': true,
-                'name':user.name,
+                'name': user.name,
                 'message': `${user.name} loggedIn sucessfully!`,
                 'token': token
             }
@@ -85,11 +85,21 @@ const login = async (req, resp) => {
         apiError(resp, errorData)
     }
 }
-const users = async (req,resp)=>{
+const users = async (req, resp) => {
     try {
-        
+        const data = {
+            'status': true,
+            'message': `sucessfully!`,
+            'token': token
+        }
+        apiSuccess(resp, data);
     } catch (error) {
-        
+        const errorData = {
+            'error': error.message,
+            'status': false,
+            'message': "Somthing went wrong!"
+        }
+        apiError(resp, errorData)
     }
 }
-module.exports = { register, login ,users}
+module.exports = { register, login, users }

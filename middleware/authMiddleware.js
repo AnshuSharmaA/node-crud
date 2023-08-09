@@ -5,7 +5,7 @@ function authenticateToken(req, resp, next) {
     if (!token) {
         const errorData = {
             'status': false,
-            'message': "Incorrect email or password!"
+            'message': "You are not authorized to access!"
         }
         apiError(resp, errorData)
         
@@ -15,11 +15,11 @@ function authenticateToken(req, resp, next) {
         if (err) {
             const errorData = {
                 'status': false,
-                'message': "You are not authorized to access!"
+                'message': "Incorrect email or password!"
             }
             apiError(resp, errorData)
         }
-        req.user = user;
+       
         next();
     });
 }
