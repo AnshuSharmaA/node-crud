@@ -7,3 +7,4 @@ After installation of node js
 npm install --save sequelize
 npm install mysql2
 npm i body-parser
+npm i bcrypt

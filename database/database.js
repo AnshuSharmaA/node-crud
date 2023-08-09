@@ -10,15 +10,15 @@ const sequelize = new Sequelize(
     dialect: "mysql",
   }
 );
-require("../models/User")(sequelize, DataTypes);
-require("../models/UserDetails")(sequelize, DataTypes);
+// require("../models/User")(sequelize, DataTypes);
+// require("../models/UserDetails")(sequelize, DataTypes);
 
 (async () => {
   try {
     await sequelize.authenticate();
     console.log("Connection has been established successfully.");
-    await sequelize.sync({ force: true });
-    console.log("All models were synchronized successfully.");
+    // await sequelize.sync({ force: true });
+    // console.log("All models were synchronized successfully.");
   } catch (error) {
     console.error("Unable to connect to the database: ", error);
   }
