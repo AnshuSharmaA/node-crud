@@ -1,64 +1,54 @@
 const bcrypt = require("bcrypt");
-const { Sequelize, DataTypes } = require("sequelize");
-const sequelize = require('../database/database');
 
-const User = sequelize.define(
-    "User",
-    {
-        name: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                max: {
-                    args: [32],
-                    msg: "Maximum 32 characters allowed in name",
+module.exports = (sequelize,DataTypes)=>{
+    const User = sequelize.define(
+        "User",
+        {
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    max: {
+                        args: [32],
+                        msg: "Maximum 32 characters allowed in name",
+                    },
+                    min: {
+                        args: [4],
+                        msg: "Minimum 4 characters required in name",
+                    },
                 },
-                min: {
-                    args: [4],
-                    msg: "Minimum 4 characters required in name",
+            },
+            email: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    isEmail: true,
+                },
+                unique: {
+                    args: true,
+                    msg: "Email address already in use!",
                 },
             },
-        },
-        email: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                isEmail: true,
-            },
-            unique: {
-                args: true,
-                msg: "Email address already in use!",
+            password: {
+                type: DataTypes.STRING,
+                allowNull: false,
             },
         },
-        password: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-    },
-    {
-        tableName: 'users',
-        hooks: {
-            beforeCreate: async (user) => {
-                const hashedPassword = await bcrypt.hash(user.password, 10);
-                user.password = hashedPassword;
+        {
+            tableName: 'users',
+            hooks: {
+                beforeCreate: async (user) => {
+                    const hashedPassword = await bcrypt.hash(user.password, 10);
+                    user.password = hashedPassword;
+                },
             },
-        },
-        instanceMethods: {
-            validPassword(password) {
-                return bcrypt.compare(password, this.password);
+            instanceMethods: {
+                validPassword(password) {
+                    return bcrypt.compare(password, this.password);
+                },
             },
-        },
-        timestamps: true,
-    }
-);
-
-(async () => {
-    try {
-        await sequelize.sync({ force: false });
-        console.log("All models were synchronized successfully.");
-    } catch (error) {
-        console.error("Unable to connect to the database: ", error);
-    }
-})();
-
-module.exports = User;
+            timestamps: true,
+        }
+    );
+    return User;
+}

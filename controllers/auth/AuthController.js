@@ -1,9 +1,12 @@
-const User = require('../../models/User');
-const UserDetails = require('../../models/UserDetails');
+
+
 const apiSuccess = require('../../responses/success');
 const apiError = require('../../responses/error');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const db = require('../../database/database');
+const User = db.User;
+const UserDetails = db.UserDetails;
 /* register api */
 const register = async (req, resp) => {
     try {
@@ -87,10 +90,17 @@ const login = async (req, resp) => {
 }
 const users = async (req, resp) => {
     try {
+        var users_array = await User.findAll({
+            attributes:['name','email'],
+            include:[{
+                model:UserDetails,
+                attributes:['address','mobile','profile_image']
+            }]
+        })
         const data = {
             'status': true,
             'message': `sucessfully!`,
-            'token': token
+            'data':users_array,
         }
         apiSuccess(resp, data);
     } catch (error) {
