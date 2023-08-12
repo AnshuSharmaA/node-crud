@@ -1,5 +1,3 @@
-
-
 const apiSuccess = require('../../responses/success');
 const apiError = require('../../responses/error');
 const bcrypt = require('bcrypt');
@@ -14,6 +12,7 @@ const register = async (req, resp) => {
             name: req.body.name,
             email: req.body.email,
             password: req.body.password,
+            user_role:2,
         }
         const user = await User.create(userData);
         const userDetailsData = {
@@ -44,7 +43,6 @@ const register = async (req, resp) => {
         apiError(resp, errorData)
     }
 }
-
 /* Login api */
 const login = async (req, resp) => {
     const { email, password } = req.body;
@@ -78,7 +76,6 @@ const login = async (req, resp) => {
             }
             apiSuccess(resp, data);
         }
-
     } catch (error) {
         const errorData = {
             'error': error.message,

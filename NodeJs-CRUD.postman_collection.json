@@ -78,7 +78,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY5MTY3MTg1NCwiZXhwIjoxNjkxNjc1NDU0fQ.v_u7031Ok8O2UG85M83FlVwyfEGUQ36LbXGcMmsZ5HM",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY5MTgyMDM2OSwiZXhwIjoxNjkxODIzOTY5fQ.DNnX6gw1R6_JQC6NcPbEgmupAogN149SzRXeakban20",
 									"type": "string"
 								}
 							]
@@ -94,6 +94,80 @@
 							"path": [
 								"auth",
 								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "add",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY5MTgyMDM2OSwiZXhwIjoxNjkxODIzOTY5fQ.DNnX6gw1R6_JQC6NcPbEgmupAogN149SzRXeakban20",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Electronics\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/category/add/category",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"category",
+								"add",
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY5MTgyMDM2OSwiZXhwIjoxNjkxODIzOTY5fQ.DNnX6gw1R6_JQC6NcPbEgmupAogN149SzRXeakban20",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/category/list/category",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"category",
+								"list",
+								"category"
 							]
 						}
 					},

@@ -19,6 +19,11 @@ db.Sequelize = Sequelize;
 // Define your models
 db.User = require("../models/User")(sequelize, DataTypes);
 db.UserDetails = require("../models/UserDetails")(sequelize, DataTypes);
+db.Category = require('../models/Category')(sequelize,DataTypes);
+db.Product = require('../models/Product')(sequelize,DataTypes);
+db.Order = require('../models/Order')(sequelize,DataTypes);
+db.OrderItem = require('../models/OrderItem')(sequelize,DataTypes);
+/* Relation or Associations between models */
 db.User.hasOne(db.UserDetails, { foreignKey: 'user_id' });
 db.UserDetails.belongsTo(db.User);
 

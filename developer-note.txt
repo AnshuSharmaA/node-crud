@@ -9,3 +9,4 @@ npm install mysql2
 npm i body-parser
 npm i bcrypt
 npm i jsonwebtoken
+npm install -g sequelize-cli  This package is used to handle Seeder in nodejs 

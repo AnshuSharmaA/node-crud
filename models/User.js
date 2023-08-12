@@ -33,6 +33,10 @@ module.exports = (sequelize,DataTypes)=>{
                 type: DataTypes.STRING,
                 allowNull: false,
             },
+            user_role: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+            },
         },
         {
             tableName: 'users',
