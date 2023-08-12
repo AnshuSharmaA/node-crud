@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const db = require('../../database/database');
 const User = db.User;
 const UserDetails = db.UserDetails;
+require('dotenv').config()
 /* register api */
 const register = async (req, resp) => {
     try {
@@ -67,7 +68,7 @@ const login = async (req, resp) => {
         }
         else {
             // Generate JWT token
-            const token = jwt.sign({ userId: user.id }, 'your-secret-key', { expiresIn: '1h' });
+            const token = jwt.sign({ userId: user.id }, process.env.SECRET_KEY, { expiresIn: '10h' });
             const data = {
                 'status': true,
                 'name': user.name,

@@ -6,7 +6,7 @@ module.exports = (sequalize, DataTypes) => {
         }
     },
         {
-            tableName: 'catogories'
+            tableName: 'categories'
         }, {
         timestamp: true
     });

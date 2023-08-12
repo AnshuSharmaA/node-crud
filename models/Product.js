@@ -17,10 +17,14 @@ module.exports = (sequalize, DataTypes) => {
             defaultValue: 0,
             allowNull: false
         },
+        product_image: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
         category_id: {
             type: DataTypes.INTEGER,
             references: {
-                model: 'catogories',
+                model: 'categories',
                 foreignKey: 'id',
             }
         }

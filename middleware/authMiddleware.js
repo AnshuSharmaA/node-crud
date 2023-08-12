@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const apiError = require('../responses/error');
+require('dotenv').config()
 function authenticateToken(req, resp, next) {
     const token = req.header('Authorization')?.split(' ')[1];
     if (!token) {
@@ -8,10 +9,8 @@ function authenticateToken(req, resp, next) {
             'message': "You are not authorized to access!"
         }
         apiError(resp, errorData)
-        
     }
-
-    jwt.verify(token, 'your-secret-key', (err, user) => {
+    jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
         if (err) {
             const errorData = {
                 'status': false,
@@ -19,11 +18,9 @@ function authenticateToken(req, resp, next) {
             }
             apiError(resp, errorData)
         }
-       
         next();
     });
 }
-
 module.exports = {
     authenticateToken,
 };
