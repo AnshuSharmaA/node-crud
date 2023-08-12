@@ -13,7 +13,7 @@ const register = async (req, resp) => {
             name: req.body.name,
             email: req.body.email,
             password: req.body.password,
-            user_role:2,
+            user_role: 2,
         }
         const user = await User.create(userData);
         const userDetailsData = {
@@ -86,19 +86,26 @@ const login = async (req, resp) => {
         apiError(resp, errorData)
     }
 }
+/* get all the users */
 const users = async (req, resp) => {
     try {
+        const protocol = req.protocol;
+        const hostname = req.get('host');
         var users_array = await User.findAll({
-            attributes:['name','email'],
-            include:[{
-                model:UserDetails,
-                attributes:['address','mobile','profile_image']
+            attributes: ['name', 'email'],
+            include: [{
+                model: UserDetails,
+                attributes: ['address', 'mobile', 'profile_image']
             }]
         })
+        // Apply the accessor to each product
+        for (const user of users_array) {
+            user.dataValues.user_image_url = user.getUserImageURL(protocol, hostname); // Call the accessor method
+        }
         const data = {
             'status': true,
             'message': `sucessfully!`,
-            'data':users_array,
+            'data': users_array,
         }
         apiSuccess(resp, data);
     } catch (error) {
@@ -110,4 +117,51 @@ const users = async (req, resp) => {
         apiError(resp, errorData)
     }
 }
-module.exports = { register, login, users }
+/* get the single users */
+const details = async (req, resp) => {
+    try {
+        const protocol = req.protocol;
+        const hostname = req.get('host');
+        if (req.body.user_id) {
+            var user = await User.findOne({
+                where: { id: req.body.user_id },
+                attributes: ['name', 'email'],
+                include: [{
+                    model: UserDetails,
+                    attributes: ['address', 'mobile', 'profile_image']
+                }]
+            })
+            // Apply the accessor to each product
+
+            if (user) {
+                user.dataValues.user_image_url = user.getUserImageURL(protocol, hostname);
+                const data = {
+                    'status': true,
+                    'message': `Users fetched sucessfully!`,
+                    'data': user,
+                }
+                apiSuccess(resp, data);
+            } else {
+                const errorData = {
+                    'status': false,
+                    'message': "No Users found!"
+                }
+                apiError(resp, errorData)
+            }
+        }
+        else {
+            const errorData = {
+                'status': false,
+                'message': "User id is required"
+            }
+            apiError(resp, errorData)
+        }
+    } catch (error) {
+        const errorData = {
+            'error': error.message,
+            'status': false,
+        }
+        apiError(resp, errorData)
+    }
+}
+module.exports = { register, login, users, details }

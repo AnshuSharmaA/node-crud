@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 
-module.exports = (sequelize,DataTypes)=>{
+module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define(
         "User",
         {
@@ -54,5 +54,9 @@ module.exports = (sequelize,DataTypes)=>{
             timestamps: true,
         }
     );
+
+    User.prototype.getUserImageURL = function (protocol, hostname) {
+        return this.UserDetail.profile_image ? `${protocol}://${hostname}/public/${this.UserDetail.profile_image}` : null;
+    };
     return User;
 }

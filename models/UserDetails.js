@@ -1,4 +1,4 @@
-module.exports = (sequelize,DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
     const UserDetails = sequelize.define('UserDetails', {
         address: {
             type: DataTypes.STRING,
@@ -25,6 +25,7 @@ module.exports = (sequelize,DataTypes) => {
         tableName: 'user_details'
     }, {
         timestamps: true
-    });
+    })
+    
     return UserDetails;
 }
