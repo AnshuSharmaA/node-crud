@@ -33,5 +33,9 @@ module.exports = (sequalize, DataTypes) => {
     }, {
         timestamp: true,
     })
+    // Define the accessor method
+    Product.prototype.getProductImageURL = function (protocol, hostname) {
+        return this.product_image ? `${protocol}://${hostname}/public/${this.product_image}` : `${protocol}://${hostname}/public/dummy.jpg`;
+    };
     return Product;
 }
